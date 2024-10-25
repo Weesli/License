@@ -71,3 +71,17 @@ func createLicense(license License) {
 	}
 	fmt.Println("License created successfully")
 }
+
+func deleteLicense(key string) {
+	client := getConnection()
+	collection := client.Database("test").Collection("licenses")
+
+	filter := bson.D{{Key: "key", Value: key}}
+
+	result, err := collection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Deleted %v documents\n", result.DeletedCount)
+}

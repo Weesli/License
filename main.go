@@ -15,6 +15,7 @@ func setupHandlers() {
 	http.HandleFunc("/api/v1/public/checkLicense", getLicenseHandler)
 	http.HandleFunc("/api/v1/private/createLicense", createLicenseHandler)
 	http.HandleFunc("/api/v1/private/getAll", getLicensesHandler)
+	http.HandleFunc("/api/v1/private/removeLicense", deleteLicenseHandler)
 }
 
 func main() {

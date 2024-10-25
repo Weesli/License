@@ -53,3 +53,15 @@ func getLicensesHandler(w http.ResponseWriter, r *http.Request) {
 	licenses := getLicenses()
 	json.NewEncoder(w).Encode(licenses)
 }
+
+func deleteLicenseHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("admin-secret") == "" || r.Header.Get("admin-secret") != os.Getenv("ADMIN_SECRET") {
+		w.WriteHeader(http.StatusUnauthorized)
+		fmt.Fprintf(w, `{"error": "Unauthorized"}`)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	key := r.URL.Query().Get("key")
+	deleteLicense(key)
+	fmt.Fprintf(w, `{"message": "License deleted successfully"}`)
+}
