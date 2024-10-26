@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 
 var client *mongo.Client
 
-func getConnection() mongo.Client {
+func GetConnection() mongo.Client {
 	if client != nil {
 		return *client
 	}
